@@ -14,7 +14,7 @@ def list_jpg_files(directory):
 dataset_directory = 'small_dataset'
 jpg_files = list_jpg_files(dataset_directory)
 
-unknown_image = face_recognition.load_image_file("unknown6.jpg")   #欲識別的jpg
+unknown_image = face_recognition.load_image_file("unknown2.jpg")   #欲識別的jpg
 unknown_encoding = face_recognition.face_encodings(unknown_image)[0]    #進行encoding的特徵抓取
 #print(unknown_encoding)
 
@@ -27,5 +27,11 @@ for jpg_file in jpg_files:
     container_count+=1
 
 results = face_recognition.api.compare_faces(container, unknown_encoding, tolerance=0.4)
-print(results)
-print(len(results))
+contain = 0
+for i in range(0,len(results),1):
+    if(results[i] == True):
+        print(jpg_files[i])
+        contain = 1
+        break
+if(contain == 0):
+    print("The person is not in the dataset.")
